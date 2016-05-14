@@ -29,9 +29,8 @@ var Puzzle = {
 
             $this.x = x;
             $this.y = y;
-            Puzzle.setSquare($this,x,y);
-            console.log(Puzzle.getSquare(x,y));
             $this.on("click",function () { // listen to click on piece.
+                //console.log("on click: "+$this.x+" "+$this.y);
                 Puzzle.moveIt($this);
             });
             $this.on({
@@ -49,59 +48,77 @@ var Puzzle = {
         });       
     },
     moveable:function ($div) {
-        //console.log($div.x);
+        var pb = Puzzle.blankSpace;
         var move,direction;
 
-        if ($div.x+100 === Puzzle.blankSpace.column && $div.y===Puzzle.blankSpace.row) {
-            console.log("to the right");
+        if ($div.x+100 === pb.row && $div.y===pb.column) {
+            //console.log("to the right");
             return {
                 move : true,
                 direction : "RIGHT"
             };
-        }else if ($div.x-100 === Puzzle.blankSpace.column && $div.y===Puzzle.blankSpace.row) {
-            console.log("to the left");
+        }else if ($div.x-100 === pb.row && $div.y===pb.column) {
+            //console.log("to the left");
             return {
                 move : true,
                 direction : "LEFT"
             };
-        }else if ($div.y-100 === Puzzle.blankSpace.row && $div.x-100 === Puzzle.blankSpace.row) {
-            console.log("to the up");
+        }else if ($div.y-100 === pb.column && $div.x=== pb.row) {
+            //console.log("to the up");
             return {
                 move : true,
                 direction : "UP"
             };
-        }else if ($div.y+100 === Puzzle.blankSpace.row && $div.x ===Puzzle.blankSpace.column) {
-            console.log("to the down");
+        }else if ($div.y+100 === pb.column && $div.x ===pb.row) {
+            //console.log("to the down");
             return {
                 move : true,
                 direction : "DOWN"
             };
         }else{
-            console.log("can't move");
+            //console.log("can't move");
             return{
                 move : false
             };
         }
     },
     moveIt: function($div){
-        console.log($div);
+        //console.log($div);
         var $moveable = Puzzle.moveable($div);
+        var pb = Puzzle.blankSpace;
         if ($moveable.move === true) { // can it move
             switch($moveable.direction){ //to what direction
                 case "LEFT":
-                    console.log("moving to left");
+                    //console.log("moving to left");
+                    var temp = pb.row;
+                    pb.row = $div.x;
+                    $div.x = temp;
+                    $div.css('left',$div.x);
                     break;
                 case "RIGHT":
-                    console.log("moving to right");
+                    //console.log("moving to right");
+                    //Puzzle.setSquare($div,)
+                    var temp = $div.x;
+                    $div.x = pb.row;
+                    pb.row = temp;
+                    $div.css('left',$div.x);
                     break;
                 case "UP":
-                    console.log("moving to up");
+                    //console.log("moving to up");
+                    var temp = $div.y;
+                    $div.y = pb.column;
+                    pb.column = temp;
+                    $div.css('top',$div.y);
                     break;
                 case "DOWN":
-                    console.log("moving down");
+                    //console.log("moving down");
+                    var temp = pb.column;
+                    pb.column = $div.y;
+                    $div.y = temp;
+                    $div.css('top',$div.y);
                     break;
                 default:
-                    console.log("can't move");
+                    //console.log("can't move");
             }
         }
     },
