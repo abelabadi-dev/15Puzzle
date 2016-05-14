@@ -27,45 +27,70 @@ var Puzzle = {
                         "backgroundPosition" : -x + 'px ' + (-y) + 'px'
             });
 
-            // $this.x = x;
-            // $this.y = y;
+            $this.x = x;
+            $this.y = y;
             Puzzle.setSquare($this,x,y);
             console.log(Puzzle.getSquare(x,y));
+            $this.on("click",function () { // listen to click on piece.
+                Puzzle.moveIt($this);
+            });
         });       
     },
     moveable:function ($div) {
+        console.log($div.x);
         var move,direction;
 
-        if ($div.x+1 === blankSpace.column) {
+        if ($div.x+100 === Puzzle.blankSpace.column) {
             console.log("to the right");
             return {
-                move = true;
-                direction = "RIGHT";
+                move : true,
+                direction : "RIGHT"
             };
-        }else if ($div.x-1 === blankSpace.column) {
+        }else if ($div.x-100 === Puzzle.blankSpace.column) {
             console.log("to the left");
             return {
-                move = true;
-                direction = "LEFT";
+                move : true,
+                direction : "LEFT"
             };
-        }else if (div.y+1 === blankSpace.row) {
+        }else if ($div.y+100 === Puzzle.blankSpace.row) {
             console.log("to the up");
             return {
-                move = true;
-                direction = "UP";
+                move : true,
+                direction : "UP"
             };
-        }else if (div.y-1 === blankSpace.row) {
+        }else if ($div.y-100 === Puzzle.blankSpace.row) {
             console.log("to the down");
             return {
-                move = true;
-                direction = "DOWN";
+                move : true,
+                direction : "DOWN"
             };
         }else{
-            move = false;
+            return{
+                move : false
+            };
         }
     },
-    moveIt: function(){
-        
+    moveIt: function($div){
+        console.log($div);
+        var $moveable = Puzzle.moveable($div);
+        if ($moveable.move === true) { // can it move
+            switch($moveable.direction){ //to what direction
+                case "LEFT":
+                    console.log("moving to left");
+                    break;
+                case "RIGHT":
+                    console.log("moving to right");
+                    break;
+                case "UP":
+                    console.log("moving to up");
+                    break;
+                case "DOWN":
+                    console.log("moving down");
+                    break;
+                default:
+                    console.log("can't move");
+            }
+        }
     },
     getSquare: function (row,column) {
         var id = "square_"+row+"_"+column;

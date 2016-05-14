@@ -20,6 +20,7 @@ body, button {
 
 /* This class should be applied to each of the 15 puzzle pieces. */
 .puzzlepiece {
+    cursor: pointer;
 	background-image: url(background.jpg);
 	border: 5px solid black;
 	width: 90px;
