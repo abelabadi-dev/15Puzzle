@@ -34,10 +34,22 @@ var Puzzle = {
             $this.on("click",function () { // listen to click on piece.
                 Puzzle.moveIt($this);
             });
+            $this.on({
+                mouseenter:function () {
+                    var $moveable = Puzzle.moveable($this);
+                    if ($moveable.move) {
+                        //console.log('on movable hovering');
+                        $this.addClass("movablepiece");
+                    }
+                },
+                mouseleave:function () {
+                   $this.removeClass("movablepiece");
+                }
+            });
         });       
     },
     moveable:function ($div) {
-        console.log($div.x);
+        //console.log($div.x);
         var move,direction;
 
         if ($div.x+100 === Puzzle.blankSpace.column && $div.y===Puzzle.blankSpace.row) {
