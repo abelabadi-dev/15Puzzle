@@ -7,6 +7,10 @@ $(function () {
 	Puzzle.init();
 });
 var Puzzle = {
+    var blankSpace{
+        row:300;
+        column:300;
+    },
     init: function() {
         var puzzleArea = $('#puzzlearea');
         var divs = puzzleArea.children("div");
@@ -23,12 +27,23 @@ var Puzzle = {
                         "backgroundPosition" : -x + 'px ' + (-y) + 'px'
             });
 
-            $this.x = x;
-            $this.y = y;
-            console.log($this.attr('id',x +"_"+y));
+            // $this.x = x;
+            // $this.y = y;
+            Puzzle.setSquare($this,x,y);
+            console.log(Puzzle.getSquare(x,y));
         });       
     },
-    moveIt(){
+    moveable:function () {
+        // body...
+    },
+    moveIt: function(){
 
+    },
+    getSquare: function (row,column) {
+        var id = "square_"+row+"_"+column;
+        return $("#"+id);
+    },
+    setSquare: function ($this,row, column) {
+        $this.attr('id',"square_"+row+"_"+column)
     }
 };
