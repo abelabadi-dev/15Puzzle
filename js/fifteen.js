@@ -40,31 +40,32 @@ var Puzzle = {
         console.log($div.x);
         var move,direction;
 
-        if ($div.x+100 === Puzzle.blankSpace.column) {
+        if ($div.x+100 === Puzzle.blankSpace.column && $div.y===Puzzle.blankSpace.row) {
             console.log("to the right");
             return {
                 move : true,
                 direction : "RIGHT"
             };
-        }else if ($div.x-100 === Puzzle.blankSpace.column) {
+        }else if ($div.x-100 === Puzzle.blankSpace.column && $div.y===Puzzle.blankSpace.row) {
             console.log("to the left");
             return {
                 move : true,
                 direction : "LEFT"
             };
-        }else if ($div.y+100 === Puzzle.blankSpace.row) {
+        }else if ($div.y-100 === Puzzle.blankSpace.row && $div.x-100 === Puzzle.blankSpace.row) {
             console.log("to the up");
             return {
                 move : true,
                 direction : "UP"
             };
-        }else if ($div.y-100 === Puzzle.blankSpace.row) {
+        }else if ($div.y+100 === Puzzle.blankSpace.row && $div.x ===Puzzle.blankSpace.column) {
             console.log("to the down");
             return {
                 move : true,
                 direction : "DOWN"
             };
         }else{
+            console.log("can't move");
             return{
                 move : false
             };
