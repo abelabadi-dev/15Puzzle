@@ -7,9 +7,9 @@ $(function () {
 	Puzzle.init();
 });
 var Puzzle = {
-    var blankSpace{
-        row:300;
-        column:300;
+    blankSpace:{
+        row:300,
+        column:300
     },
     init: function() {
         var puzzleArea = $('#puzzlearea');
@@ -33,17 +33,47 @@ var Puzzle = {
             console.log(Puzzle.getSquare(x,y));
         });       
     },
-    moveable:function () {
-        // body...
+    moveable:function ($div) {
+        var move,direction;
+
+        if ($div.x+1 === blankSpace.column) {
+            console.log("to the right");
+            return {
+                move = true;
+                direction = "RIGHT";
+            };
+        }else if ($div.x-1 === blankSpace.column) {
+            console.log("to the left");
+            return {
+                move = true;
+                direction = "LEFT";
+            };
+        }else if (div.y+1 === blankSpace.row) {
+            console.log("to the up");
+            return {
+                move = true;
+                direction = "UP";
+            };
+        }else if (div.y-1 === blankSpace.row) {
+            console.log("to the down");
+            return {
+                move = true;
+                direction = "DOWN";
+            };
+        }else{
+            move = false;
+        }
     },
     moveIt: function(){
-
+        
     },
     getSquare: function (row,column) {
         var id = "square_"+row+"_"+column;
         return $("#"+id);
     },
     setSquare: function ($this,row, column) {
+        $this.x = row;
+        $this.y = column;
         $this.attr('id',"square_"+row+"_"+column)
     }
 };
