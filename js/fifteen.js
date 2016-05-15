@@ -32,8 +32,9 @@ var Puzzle = {
             $this.y = y;
             Puzzle.pieces.push($this);
             $this.on("click",function () { // listen to click on piece to move.
-                //console.log("on click: "+$this.x+" "+$this.y);
-                Puzzle.moveIt($this);
+                var $moveable = Puzzle.moveable($this);
+                if ($moveable.move)
+                    Puzzle.moveIt($this,$moveable.direction);
             });
             $this.on({ // hover over a movable square
                 mouseenter:function () {
@@ -49,24 +50,23 @@ var Puzzle = {
             });
         }); // end of divs.each
         $('#shufflebutton').on('click',function () {
-            Puzzle.shuffle(Puzzle.pieces);
+            for (var i = 0; i < 10; i++) {
+                Puzzle.shuffle(Puzzle.pieces);
+            }
         });       
     },
     shuffle:function (divs) {
-        var $this = Puzzle.pieces[14];
-            $this.x = 300;
-            $this.css('left','300px')
-            console.log($this);
-            Puzzle.blankSpace.row = 200;
-            console.log(Puzzle.blankSpace);
-        // divs.each(function (index) {
-        //     var $this = $(this);
-        //     console.log($this.x);
-            // var $moveable = Puzzle.moveable($this);
-            // if ($moveable.move === true) {
-            //     console.log($moveable.direction);
-            // }
-        //});//inside shuffle: end of divs.each
+        var counter = 0;
+        divs.forEach(function (piece,index) {
+            var $this = piece;
+            var $moveable = Puzzle.moveable($this);
+            if ($moveable.move) {
+                counter++;
+                Puzzle.moveIt($this,$moveable.direction)
+            }
+            if(counter === 100)
+                return;
+        });//inside shuffle: end of divs.each
     },
     moveable:function ($div) {
         var pb = Puzzle.blankSpace;
@@ -103,12 +103,12 @@ var Puzzle = {
             };
         }
     },
-    moveIt: function($div){
+    moveIt: function($div,direction){
         //console.log($div);
-        var $moveable = Puzzle.moveable($div);
+        //var $moveable = Puzzle.moveable($div);
         var pb = Puzzle.blankSpace;
-        if ($moveable.move === true) { // can it move
-            switch($moveable.direction){ //to what direction
+        //if ($moveable.move === true) { // can it move
+            switch(direction){ //to what direction
                 case "LEFT":
                     //console.log("moving to left");
                     var temp = pb.row;
@@ -139,9 +139,9 @@ var Puzzle = {
                     $div.css('top',$div.y);
                     break;
                 default:
-                    //console.log("can't move");
+                    alert("it can't move");
             }
-        }
+        //}
     },
     getSquare: function (row,column) {
         var id = "square_"+row+"_"+column;
