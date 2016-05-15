@@ -33,3 +33,6 @@ body, button {
 	border-color: red;
 	color: red;
 }
+#shufflebutton{
+	cursor: pointer;
+}

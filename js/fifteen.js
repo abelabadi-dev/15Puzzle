@@ -7,13 +7,14 @@ $(function () {
 	Puzzle.init();
 });
 var Puzzle = {
+    pieces:[],
     blankSpace:{
         row:300,
         column:300
     },
     init: function() {
         var puzzleArea = $('#puzzlearea');
-        var divs = puzzleArea.children("div");
+        divs = puzzleArea.children("div");
           
         // initialize each piece
         divs.each(function (index) {
@@ -29,11 +30,12 @@ var Puzzle = {
 
             $this.x = x;
             $this.y = y;
-            $this.on("click",function () { // listen to click on piece.
+            Puzzle.pieces.push($this);
+            $this.on("click",function () { // listen to click on piece to move.
                 //console.log("on click: "+$this.x+" "+$this.y);
                 Puzzle.moveIt($this);
             });
-            $this.on({
+            $this.on({ // hover over a movable square
                 mouseenter:function () {
                     var $moveable = Puzzle.moveable($this);
                     if ($moveable.move) {
@@ -45,7 +47,26 @@ var Puzzle = {
                    $this.removeClass("movablepiece");
                 }
             });
+        }); // end of divs.each
+        $('#shufflebutton').on('click',function () {
+            Puzzle.shuffle(Puzzle.pieces);
         });       
+    },
+    shuffle:function (divs) {
+        var $this = Puzzle.pieces[14];
+            $this.x = 300;
+            $this.css('left','300px')
+            console.log($this);
+            Puzzle.blankSpace.row = 200;
+            console.log(Puzzle.blankSpace);
+        // divs.each(function (index) {
+        //     var $this = $(this);
+        //     console.log($this.x);
+            // var $moveable = Puzzle.moveable($this);
+            // if ($moveable.move === true) {
+            //     console.log($moveable.direction);
+            // }
+        //});//inside shuffle: end of divs.each
     },
     moveable:function ($div) {
         var pb = Puzzle.blankSpace;
