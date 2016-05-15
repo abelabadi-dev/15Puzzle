@@ -50,23 +50,22 @@ var Puzzle = {
             });
         }); // end of divs.each
         $('#shufflebutton').on('click',function () {
-            for (var i = 0; i < 10; i++) {
+            //for (var i = 0; i < 10; i++) {
                 Puzzle.shuffle(Puzzle.pieces);
-            }
+            //}
         });       
     },
     shuffle:function (divs) {
-        var counter = 0;
-        divs.forEach(function (piece,index) {
-            var $this = piece;
-            var $moveable = Puzzle.moveable($this);
+        
+        var index; 
+        for (var i = 0; i < 1000; i++) {
+            index = parseInt(Math.random()*14);
+            var piece = divs[index];
+            var $moveable = Puzzle.moveable(piece);
             if ($moveable.move) {
-                counter++;
-                Puzzle.moveIt($this,$moveable.direction)
+                Puzzle.moveIt(piece,$moveable.direction)
             }
-            if(counter === 100)
-                return;
-        });//inside shuffle: end of divs.each
+        }
     },
     moveable:function ($div) {
         var pb = Puzzle.blankSpace;
