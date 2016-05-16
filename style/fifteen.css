@@ -20,6 +20,7 @@ body, button {
 
 /* This class should be applied to each of the 15 puzzle pieces. */
 .puzzlepiece {
+    cursor: pointer;
 	background-image: url(background.jpg);
 	border: 5px solid black;
 	width: 90px;
@@ -32,6 +33,12 @@ body, button {
 	border-color: red;
 	color: red;
 }
+<<<<<<< HEAD
 
 
 
+=======
+#shufflebutton{
+	cursor: pointer;
+}
+>>>>>>> origin/master
